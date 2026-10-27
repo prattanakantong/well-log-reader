@@ -54,6 +54,12 @@ namespace well_log_reader_backend
         public string DepthUnit { get; set; } = "";
 
         /// <summary>
+        /// False when the first column is not depth (for example TIME). Such a well is loaded
+        /// but not plotted (D12).
+        /// </summary>
+        public bool IsDepthIndexed { get; set; } = true;
+
+        /// <summary>
         /// The data columns after the first one, in file order. The first column is not here
         /// because it is stored once, as double, in Depth (D2, D4).
         /// </summary>

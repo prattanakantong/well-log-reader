@@ -60,7 +60,7 @@ namespace well_log_reader_backend
 
             // The unit runs from just after the dot to the first space (or tab), but never past the colon.
             int unitEnd = dot + 1;
-            while (unitEnd < colon && !IsSpace(text[unitEnd]))
+            while (unitEnd < colon && !LasText.IsSpace(text[unitEnd]))
             {
                 unitEnd++;
             }
@@ -74,12 +74,6 @@ namespace well_log_reader_backend
                 line = lineNumber
             };
             return true;
-        }
-
-        /// <summary>Tabs and other control characters count as spaces (DESIGN §5, reading details).</summary>
-        private static bool IsSpace(char c)
-        {
-            return char.IsWhiteSpace(c) || char.IsControl(c);
         }
     }
 }
