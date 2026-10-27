@@ -215,8 +215,10 @@ returns its report entries, so steps can be added or reordered easily.
 
 ## Results on the sample data
 
-203 files in `TestData`, about 164 s on the development machine (load 84 s,
-conditioning 1 s, plot 80 s):
+The assignment mentions 50 files, but the provided `TestData` folder contains
+**203 LAS files** (170 `.las` and 33 `.LAS`, about 1 GB; several files often belong
+to the same well). All 203 files were processed, in about 164 s on the development
+machine (load 84 s, conditioning 1 s, plot 80 s):
 
 | Result | Files |
 |---|---|
