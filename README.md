@@ -271,8 +271,8 @@ was unclear, and sometimes got extra insights I would not have thought to ask ab
 **2. Designing the rules together.** With what I had learned, the AI and I designed
 the rules of the program together: how to read a file, what to do with bad lines,
 how to clean the data, and how to plot it. I wrote these decisions down in two
-files: `CLAUDE.md` (how the AI must work with me) and `DESIGN.md` (the design
-decisions D1–D18).
+files: `CLAUDE.md` (how the AI must work with me; kept local, not in the
+repository) and `DESIGN.md` (the design decisions D1–D18).
 
 **3. Implementation with Claude Code.** I gave those two files to Claude Code in the
 terminal and let it write the code, one milestone at a time. After each milestone it
