@@ -260,3 +260,25 @@ The 6 rejected files and why:
 
 ## How I used AI
 
+I am new to C# and to the oil and gas domain, so I used AI in two roles: first as a
+teacher, then as a pair programmer.
+
+**1. Learning the domain.** I asked an AI to read the official LAS documentation
+from the web and explain it to me. It taught me the file format and the meaning of
+the main log curves step by step. I listened, asked questions whenever something
+was unclear, and sometimes got extra insights I would not have thought to ask about.
+
+**2. Designing the rules together.** With what I had learned, the AI and I designed
+the rules of the program together: how to read a file, what to do with bad lines,
+how to clean the data, and how to plot it. I wrote these decisions down in two
+files: `CLAUDE.md` (how the AI must work with me) and `DESIGN.md` (the design
+decisions D1–D18).
+
+**3. Implementation with Claude Code.** I gave those two files to Claude Code in the
+terminal and let it write the code, one milestone at a time. After each milestone it
+had to stop, explain what it changed and why, and wait for me to review before I
+committed. When a situation was not covered by the design (for example the LAS 1.2
+header layout, the `CFCF` neutron unit, or wrapped files with skipped curve lines),
+it asked me to decide instead of guessing. Whenever I did not understand something
+in the code, I asked it to explain.
+
