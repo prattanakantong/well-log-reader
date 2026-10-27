@@ -48,7 +48,8 @@ namespace WellLogReader
                 return ExitInvalidArguments;
             }
 
-            Directory.CreateDirectory(Path.Combine(outputFolder, "plots"));
+            string plotsFolder = Path.Combine(outputFolder, "plots");
+            Directory.CreateDirectory(plotsFolder);
 
             List<string> files = FindLasFiles(inputFolder);
             if (files.Count == 0)
@@ -62,7 +63,7 @@ namespace WellLogReader
 
             for (int i = 0; i < files.Count; i++)
             {
-                WellSummary summary = WellProcessor.Process(files[i]);
+                WellSummary summary = WellProcessor.Process(files[i], plotsFolder);
                 summaries.Add(summary);
                 PrintProgress(i + 1, files.Count, summary);
             }

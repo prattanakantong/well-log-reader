@@ -7,4 +7,9 @@
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<!-- Plotting library (D17). Exact version pinned. -->
+		<PackageReference Include="ScottPlot" Version="5.1.59" />
+	</ItemGroup>
+
 </Project>

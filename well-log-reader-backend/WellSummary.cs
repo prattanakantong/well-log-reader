@@ -22,6 +22,9 @@ namespace well_log_reader_backend
         /// <summary>Number of curves, not counting the depth column.</summary>
         public int CurveCount { get; set; }
 
+        /// <summary>File name of the PNG plot, for example "WELL-A.png"; empty when no plot was made.</summary>
+        public string PlotFile { get; set; } = "";
+
         /// <summary>All report entries of this file, from every stage.</summary>
         public List<ReportEntry> Entries { get; } = new List<ReportEntry>();
 
