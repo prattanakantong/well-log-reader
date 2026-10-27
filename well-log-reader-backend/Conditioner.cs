@@ -17,7 +17,10 @@ namespace well_log_reader_backend
                 new DepthToMetresStep(),          // 3
                 new SortByDepthStep(),            // 4
                 new RemoveDuplicateDepthsStep(),  // 5
-                new SamplingCheckStep()           // 6
+                new SamplingCheckStep(),          // 6
+                new IdentifyCurvesStep(),         // 7
+                new ConvertCurveUnitsStep(),      // 8
+                new PhysicalCheckStep()           // 9
             };
 
             List<ReportEntry> entries = new List<ReportEntry>();

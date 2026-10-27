@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 # Claude Code working files (CLAUDE.md, DESIGN.md, settings)
 .claude/
+
+# Sample LAS files (about 1 GB), not part of the source code
+TestData/
