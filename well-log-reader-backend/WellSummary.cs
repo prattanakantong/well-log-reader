@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace well_log_reader_backend
@@ -24,6 +25,28 @@ namespace well_log_reader_backend
 
         /// <summary>File name of the PNG plot, for example "WELL-A.png"; empty when no plot was made.</summary>
         public string PlotFile { get; set; } = "";
+
+        // Curves chosen by the catalog (D15), for the report table. Empty when none was found.
+
+        /// <summary>Mnemonic of the gamma ray curve.</summary>
+        public string GammaRayCurve { get; set; } = "";
+
+        /// <summary>Mnemonics of all resistivity curves, comma-separated.</summary>
+        public string ResistivityCurves { get; set; } = "";
+
+        /// <summary>Mnemonic of the bulk density curve.</summary>
+        public string DensityCurve { get; set; } = "";
+
+        /// <summary>Mnemonic of the neutron porosity curve.</summary>
+        public string NeutronCurve { get; set; } = "";
+
+        // Time spent in each stage, measured with Stopwatch, for the run summary.
+
+        public TimeSpan LoadTime { get; set; }
+
+        public TimeSpan ConditionTime { get; set; }
+
+        public TimeSpan PlotTime { get; set; }
 
         /// <summary>All report entries of this file, from every stage.</summary>
         public List<ReportEntry> Entries { get; } = new List<ReportEntry>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using well_log_reader_backend;
 
@@ -69,7 +70,15 @@ namespace WellLogReader
             }
 
             totalTime.Stop();
-            PrintRunSummary(summaries, totalTime.Elapsed);
+            RunStatistics stats = new RunStatistics(summaries, totalTime.Elapsed);
+
+            string markdownPath = Path.Combine(outputFolder, "report.md");
+            string csvPath = Path.Combine(outputFolder, "report.csv");
+            ReportWriter.WriteMarkdown(markdownPath, summaries, stats, inputFolder);
+            ReportWriter.WriteCsv(csvPath, summaries);
+
+            PrintRunSummary(stats);
+            Console.WriteLine("Reports:        " + markdownPath + ", " + csvPath);
             return ExitOk;
         }
 
@@ -120,27 +129,23 @@ namespace WellLogReader
             }
         }
 
-        private static void PrintRunSummary(List<WellSummary> summaries, TimeSpan elapsed)
+        private static void PrintRunSummary(RunStatistics stats)
         {
-            int ok = 0, withWarnings = 0, notPlotted = 0, rejected = 0;
-            foreach (WellSummary summary in summaries)
-            {
-                switch (summary.Status)
-                {
-                    case WellStatus.Ok: ok++; break;
-                    case WellStatus.Warnings: withWarnings++; break;
-                    case WellStatus.NotPlotted: notPlotted++; break;
-                    default: rejected++; break;
-                }
-            }
-
             Console.WriteLine();
-            Console.WriteLine("Files:          " + summaries.Count);
-            Console.WriteLine("  OK:           " + ok);
-            Console.WriteLine("  With warnings: " + withWarnings);
-            Console.WriteLine("  Not plotted:  " + notPlotted);
-            Console.WriteLine("  Rejected:     " + rejected);
-            Console.WriteLine("Total time:     " + elapsed.TotalSeconds.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) + " s");
+            Console.WriteLine("Files:          " + stats.FileCount);
+            Console.WriteLine("  OK:           " + stats.OkCount);
+            Console.WriteLine("  With warnings: " + stats.WarningsCount);
+            Console.WriteLine("  Not plotted:  " + stats.NotPlottedCount);
+            Console.WriteLine("  Rejected:     " + stats.RejectedCount);
+            Console.WriteLine("Total time:     " + Seconds(stats.TotalTime) +
+                              "  (load " + Seconds(stats.LoadTime) +
+                              ", condition " + Seconds(stats.ConditionTime) +
+                              ", plot " + Seconds(stats.PlotTime) + ")");
+        }
+
+        private static string Seconds(TimeSpan time)
+        {
+            return time.TotalSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s";
         }
     }
 }
