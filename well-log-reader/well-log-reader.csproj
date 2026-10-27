@@ -8,4 +8,8 @@
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\well-log-reader-backend\well-log-reader-backend.csproj" />
+	</ItemGroup>
+
 </Project>
