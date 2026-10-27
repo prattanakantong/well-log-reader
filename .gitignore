@@ -366,3 +366,6 @@ FodyWeavers.xsd
 
 # Sample LAS files (about 1 GB), not part of the source code
 TestData/
+
+# Program output (plots and reports)
+output/
