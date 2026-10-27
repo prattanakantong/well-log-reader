@@ -25,11 +25,18 @@ namespace well_log_reader_backend
                 well = load.Well;
                 summary.Entries.AddRange(load.Entries);
                 summary.WellName = well.WellName;
+
+                if (!load.IsRejected)
+                {
+                    stage = Stage.Condition;
+                    summary.Entries.AddRange(Conditioner.Run(well));
+                }
+
                 summary.RowCount = well.Depth.Length;
                 summary.CurveCount = well.Curves.Count;
 
-                // Conditioning (M5, M6) and plotting (M7) will be added here,
-                // each stage setting "stage" first so an internal error names the right stage.
+                // Plotting (M7) will be added here, setting "stage" first so an internal
+                // error names the right stage.
             }
             catch (Exception ex)
             {

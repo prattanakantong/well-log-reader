@@ -54,6 +54,18 @@ namespace well_log_reader_backend
         public string DepthUnit { get; set; } = "";
 
         /// <summary>
+        /// STRT, STOP and STEP from ~W as numbers, in the same unit as Depth after conditioning
+        /// (D13). NaN when missing or not a number. Used only to check the data, never to build it (D1).
+        /// </summary>
+        public double HeaderStart { get; set; } = double.NaN;
+
+        /// <summary>See HeaderStart.</summary>
+        public double HeaderStop { get; set; } = double.NaN;
+
+        /// <summary>See HeaderStart. LAS uses 0 for "irregular sampling".</summary>
+        public double HeaderStep { get; set; } = double.NaN;
+
+        /// <summary>
         /// False when the first column is not depth (for example TIME). Such a well is loaded
         /// but not plotted (D12).
         /// </summary>
