@@ -197,6 +197,30 @@ namespace well_log_reader_backend_tests
         }
 
         [Test]
+        public void WrappedWithSkippedCurveLine_IsRejected()
+        {
+            string version =
+                "~V\n" +
+                " VERS.   2.0 : VERSION\n" +
+                " WRAP.   YES : MULTIPLE LINES PER DEPTH STEP\n";
+            string curves =
+                "~C\n" +
+                " DEPT.M    : DEPTH\n" +
+                " .DT57.US/F : MNEMONIC STARTS WITH A DOT\n" +
+                " GR  .GAPI : GAMMA RAY\n";
+
+            LoadResult result = Read(version + WellSection + curves +
+                "~A\n" +
+                "100.0\n" +
+                "  120.0  50.0\n");
+
+            Assert.That(result.IsRejected, Is.True);
+            ReportEntry fatal = FindEntry(result, "Wrapped data cannot be checked against ~C");
+            Assert.That(fatal.Severity, Is.EqualTo(Severity.Fatal));
+            Assert.That(fatal.Message, Does.Contain("line 12"));
+        }
+
+        [Test]
         public void NoDataSection_IsRejected()
         {
             LoadResult result = Read(Version20 + WellSection + CurveSection);

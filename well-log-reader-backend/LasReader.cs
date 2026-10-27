@@ -236,6 +236,16 @@ namespace well_log_reader_backend
             ReadVersionSection();
             ReadWellSection();
 
+            if (well.IsWrapped && skippedCurveLines.Count > 0)
+            {
+                // Wrapped rows have no line structure, so a missing curve would silently shift
+                // every value into the wrong curve. Reject instead (D9).
+                log.Add(Severity.Fatal,
+                    $"Wrapped data cannot be checked against ~C because {skippedCurveLines.Count} ~C line(s) were skipped (see line {string.Join(", ", skippedCurveLines)})",
+                    lineNumber, "~A");
+                return false;
+            }
+
             data = new DataSectionReader(well.CurveItems, well.IsWrapped, nullValue, EstimateRowCount(), log);
             return true;
         }
